@@ -1,0 +1,33 @@
+using HeuristicSolutions.TechEval.Core.Models;
+
+namespace HeuristicSolutions.TechEval.Core.Migrations
+{
+	using System.Data.Entity.Migrations;
+
+	internal sealed class Configuration : DbMigrationsConfiguration<HeuristicSolutions.TechEval.Core.DataContext>
+    {
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+        }
+
+        protected override void Seed(HeuristicSolutions.TechEval.Core.DataContext context)
+        {
+            //  This method will be called after migrating to the latest version.
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data.
+
+	        context.Members.AddOrUpdate(
+		        new Member {Email = "sjohnson@heuristics.net", Name = "Seth Petry-Johnson"},
+		        new Member {Email = "sreed@heuristics.net", Name = "Scott Reed"},
+		        new Member {Email = "callen@heuristics.net", Name = "Calvin Allen"}
+			);
+
+	        context.Categories.AddOrUpdate(
+		        new Category {Name = "Software Developer"},
+		        new Category {Name = "Director of Application Development"}
+	        );
+        }
+    }
+}

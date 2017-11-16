@@ -1,0 +1,10 @@
+﻿using System.Web.Mvc;
+
+namespace HeuristicSolutions.TechEval.Controllers {
+	public class MembersController : Controller {
+
+		public ActionResult List() {
+			return View();
+		}
+	}
+}
