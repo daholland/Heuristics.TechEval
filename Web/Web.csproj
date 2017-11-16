@@ -230,7 +230,7 @@
     <Content Include="Views\Categories\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core\Core.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{9567e722-5eae-4203-951a-bbb398532d3b}</Project>
       <Name>Core</Name>
     </ProjectReference>
