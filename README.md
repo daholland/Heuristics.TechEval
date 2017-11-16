@@ -20,6 +20,8 @@ To get started, you need to:
 3. Open the Package Manager Console and execute the `Update-Database` command, which will create and seed a local database
 4. Run the app (<kbd>F5</kbd> starts with the debugger attached, <kbd>Ctrl-F5</kbd> starts without a debugger)
 
+![Running the migrations](https://github.com/spetryjohnson/Heuristics.TechEval/blob/master/docs/Heuristics.TechEval.docs-migrations.png)
+
 ## What next?
 
 Follow the in-app prompts for a list of tasks that you can choose to complete. 
