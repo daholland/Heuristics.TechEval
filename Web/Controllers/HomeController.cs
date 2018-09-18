@@ -8,6 +8,10 @@ namespace Heuristics.TechEval.Web.Controllers {
 			return View();
 		}
 
+		public ActionResult Setup() {
+			return View();
+		}
+
 		public ActionResult Requirements() {
 			return View();
 		}
