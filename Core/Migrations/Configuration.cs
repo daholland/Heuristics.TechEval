@@ -18,9 +18,10 @@ namespace Heuristics.TechEval.Core.Migrations
             //  to avoid creating duplicate seed data.
 
 	        context.Members.AddOrUpdate(
-		        new Member {Email = "sjohnson@heuristics.net", Name = "Seth Petry-Johnson"},
-		        new Member {Email = "sreed@heuristics.net", Name = "Scott Reed"},
-		        new Member {Email = "callen@heuristics.net", Name = "Calvin Allen"}
+		        new Member { Email = "sjohnson@heuristics.net", Name = "Seth Petry-Johnson"},
+		        new Member { Email = "sreed@heuristics.net", Name = "Scott Reed"},
+		        new Member { Email = "mfeimster@heuristics.net", Name = "Mike Feimster"},
+				new Member { Email = "bphipps@heuristics.net", Name = "Brad Phipps" }
 			);
 
 	        context.Categories.AddOrUpdate(
