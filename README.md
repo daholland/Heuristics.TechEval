@@ -14,7 +14,7 @@ Do whatever you're comfortable with. You won't "lose points" by going with the "
 
 This project requires the following:
 
-1. Visual Studio 2017 (Community Edition should be fine)
+1. Visual Studio 2019 (Community Edition should be fine)
 2. SQL Server Express LocalDb (_any SQL database should work, you'll just have to modify the web.config connection string if you don't use LocalDb_)
 
 If you already have a machine with those tools on it, you should be able to open this solution, run the database migration (see below), and be good to go.
