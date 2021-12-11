@@ -1,0 +1,40 @@
+﻿@model Heuristics.TechEval.Core.Models.Member
+
+@{
+    ViewBag.Title = "Members";
+}
+
+
+<div class="modal-dialog" role="document">
+    <form id="EditMemberForm" action="/Members/Edit" method="post">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Member</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="Name">Member Id</label>
+                    <input type="text" class="form-control" id="Id" name="Id" value="@Model.Id" readonly="readonly" />
+                </div>
+                <div class="form-group">
+                    <label for="Name">Member Name</label>
+                    <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" />
+                    <label for="Name" id="EditNameValidation" class="validation-error"></label>
+                </div>
+                <div class="form-group">
+                    <label for="Email">Email Address</label>
+                    <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" />
+                    <label for="Name" id="EditEmailValidation" class="validation-error"></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" value="Save" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </form>
+</div>
+

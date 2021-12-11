@@ -21,6 +21,7 @@
 			<th scope="row">@member.Id</th>
 			<td>@member.Name</td>
 			<td>@member.Email</td>
+			<td><button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#EditMemberModal" onclick="editMember(@member.Id)">Edit Member</button></td>
 		</tr>
 	}
 	</tbody>
@@ -40,11 +41,13 @@
 					<div class="form-group">
 						<label for="Name">Member Name</label>
 						<input type="text" class="form-control" id="Name" name="Name" placeholder="John Smith" />
+						<label for="Name" id="NewNameValidation" class="validation-error"></label>
 					</div>
-					<div class="form-group">
-						<label for="Email">Email Address</label>
-						<input type="email" class="form-control" id="Email" name="Email" placeholder="you@awesome.com" />
-					</div>
+                    <div class="form-group">
+                        <label for="Email">Email Address</label>
+                        <input type="email" class="form-control" id="Email" name="Email" placeholder="you@awesome.com" />
+                        <label for="Name" id="NewEmailValidation" class="validation-error"></label>
+                    </div>
 				</div>
 				<div class="modal-footer">
 					<input type="submit" class="btn btn-primary" value="Save" />
@@ -55,13 +58,82 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function () {
-		$("#NewMemberForm").ajaxForm({
-			success: function (formData, jqForm, options) {
-				// sure would be nice if we didn't have to reload the whole page...
-				document.location.reload();
+<div class="modal fade" id="EditMemberModal">
+</div>
+
+
+    <script type="text/javascript">
+        var editMember = function (id) {
+			var modal = $("#EditMemberModal");
+			$.get("/Members/Edit/" + id, function (data) {
+				$(modal).html(data);
+				console.log(data);
+            });
+		};
+
+		var validateNewMember = function (formData, jqForm, options) {
+			var validationErrors = 0;
+
+			if (!formData[0].value) {
+				//console.log("no name!")
+				$("#NewNameValidation").text("Name must not be empty.");
+				validationErrors = validationErrors + 1;
+			} else {
+				$("#NewNameValidation").text("");
 			}
-		});
-	});
-</script>
+			if (!formData[1].value) {
+				//console.log("no email!")
+				$("#NewEmailValidation").text("Email must not be empty.");
+				validationErrors = validationErrors + 1;
+			} else {
+				$("#NewEmailValidation").text("");
+			}
+
+			if (validationErrors > 0) {
+				return false;
+			}
+		};
+
+        validateEditMember = function (formData, jqForm, options) {
+            //this works for new member only, need to refactor so that its more general and can work also for editmember
+            //could also just have separate validation methods, but they should mostly be equivalent other than which fields are passed in.
+			var validationErrors = 0;
+			console.debug(formData);
+            if (!formData[1].value) {
+                //console.log("no name!")
+                $("#EditNameValidation").text("Name must not be empty.");
+                validationErrors = validationErrors + 1;
+            } else {
+                $("#EditNameValidation").text("");
+            }
+            if (!formData[2].value) {
+                //console.log("no email!")
+                $("#EditEmailValidation").text("Email must not be empty.");
+                validationErrors = validationErrors + 1;
+            } else {
+                $("#EditEmailValidation").text("");
+            }
+
+            if (validationErrors > 0) {
+                return false;
+			}
+			return false;
+        };
+
+		$(document).ready(function () {
+			$("#NewMemberForm").ajaxForm({
+                beforeSubmit: validateNewMember,
+                success: function (formData, jqForm, options) {
+                    // sure would be nice if we didn't have to reload the whole page...
+                    document.location.reload();
+                }
+			});
+			$("#EditMemberForm").ajaxForm({
+                beforeSubmit: validateEditMember,
+                success: function (formData, jqForm, options) {
+                    // sure would be nice if we didn't have to reload the whole page...
+                    document.location.reload();
+                }
+			});
+        });
+    </script>
