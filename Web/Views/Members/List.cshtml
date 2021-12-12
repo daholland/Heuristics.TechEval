@@ -59,6 +59,36 @@
 </div>
 
 <div class="modal fade" id="EditMemberModal">
+    <form id="EditMemberForm" action="/Members/Edit" method="post">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Member</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="Name">Member Id</label>
+                    <input type="text" class="form-control" id="Id" name="Id"  readonly="readonly" />
+                </div>
+                <div class="form-group">
+                    <label for="Name">Member Name</label>
+                    <input type="text" class="form-control" id="Name" name="Name" />
+                    <label for="Name" id="EditNameValidation" class="validation-error"></label>
+                </div>
+                <div class="form-group">
+                    <label for="Email">Email Address</label>
+                    <input type="email" class="form-control" id="Email" name="Email" />
+                    <label for="Name" id="EditEmailValidation" class="validation-error"></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" value="Save" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 
@@ -94,7 +124,7 @@
 			}
 		};
 
-        validateEditMember = function (formData, jqForm, options) {
+        var validateEditMember = function (formData, jqForm, options) {
             //this works for new member only, need to refactor so that its more general and can work also for editmember
             //could also just have separate validation methods, but they should mostly be equivalent other than which fields are passed in.
 			var validationErrors = 0;
@@ -129,11 +159,15 @@
                 }
 			});
 			$("#EditMemberForm").ajaxForm({
-                beforeSubmit: validateEditMember,
+				beforeSubmit: function (formData, jqForm, options) { console.debug(formData); return false;},
                 success: function (formData, jqForm, options) {
                     // sure would be nice if we didn't have to reload the whole page...
                     document.location.reload();
                 }
 			});
+			$("#EditMemberForm").submit(function (ev) {
+				ev.preventDefault();
+				return false;
+            })
         });
     </script>

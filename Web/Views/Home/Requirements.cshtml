@@ -32,6 +32,8 @@
 				<li>After saving changes, the grid should be updated to display the new data.</li>
 			</ol>
 
+			<p>* I have this working, with a page redirect on success for now.</p>
+
 
 			<h3>Task 2 - Validation</h3>
 			<p>
@@ -41,6 +43,8 @@
 				<li>Add validation to require a Name and Email when adding (or editing) a Member.</li>
 			</ol>
 
+			<p>* This is working for the new member modal, but the jqForm validation for the Edit Member doesnt seem to be calling the beforeSubmit callback. I'm unsure of why this is, currently. Decided to skip this and move on for now and circle back to it if theres time. 
+			Another option is to use server-side validation as well - this can be accomplished with Attributes on the DTO and DAO. I started doing this in the first extra hour. I would definitely do the server side validation as well so that the data has more guards for bad SQL db input. I also think I would prefer to use the built in ui for validation messages overall, ie with @@ Html.BeginForm()</p>
 
 			<h3>Task 3 - Prevent duplicate email addresses</h3>
 			<p>
@@ -50,6 +54,8 @@
 				<li>Modify the <a href="/Members/List">Member List</a> page to prevent the creation (or editing) of members that would create duplicate email addresses in the system.</li>
 				<li>Can you write unit or integration tests for this?</li>
 			</ol>
+
+            <p>* After first extra hour: added a method to MembersController that does this check. Still need to have that gracefully handled and presented on the front end. I believe I could write tests for this if I had time to research testing EF6 and setting up a mock test db. </p>
 
 
 			<h3>Task 4 - Categorization of Members</h3>
@@ -64,7 +70,8 @@
 				<li>Add "Member Count" as a new column to the <a href="/Categories/List">Category List</a> page, showing the number of Members in that Category.</li>
 			</ol>
 
-
+            <p>* I didn't get to this task in the first extra hour, but I believe adding a [required] public virtual Category, and creating a migration, may be enough for this. if not, then I believe there is a config method where you describe the HasOne relationship. I feel like this would go in the DataContext method, but I need to revisit EF6 docs to make sure. For the count, you could use a sql aggregation, or do similar with LINQ. </p>
+			
 			<h3>Task 5 - Sorting and Filtering</h3>
 			<p>
 				Neither of the list pages currently support any kind of sorting or paging. Users are demanding such conveniences! What to do?
@@ -75,12 +82,16 @@
 				<li>When would you use client-side vs server-side filtering/sorting?</li>
 			</ol>
 
+            <p>* After the first extra hour: I probably won't get to this, but: there is definitely a way to support filtering, but I would need a firmer grasp on the client state management than I had for these tasks. As for client vs server, sorting and filtering on the client can feel more responsive to the user. It also lowers the amount of back and forth requests to the server. One advantage of doing it on the server could be an easier time of auditing/logging user interactions for later study, but this can also be handled client side. Serverside sorting and filtering can be desired when there's a lot of information, and you only want to present limited results to the viewer. Also, SQL is built to handle sorting and filtering, and is quite good at it, and can also be used. I think I would tend to default to client sorting and filtering, and use server sorting and filtering when needed for the dataset. </p>
+
 
 			<h3>Task 6 - Your Choice</h3>
 			<p>
 				There are lots of ways that this sample app could be improved. The code could be organized differently, it could be refactored,
 				it could be made prettier and more user-friendly. Find something to improve, and then tell us why your design is better!
 			</p>
+
+            <p>* I think the biggest thing I would suggest is a move to a more modern Javascript environment, such as Vue or React. It may be because I'm more used to it than jQuery right now, but I think the benefits of reusability and easier to reason about (to me) state management makes those libraries really solid for the View layer. I know jQuery is and was the defacto choice for many years with MVC, I just need to revisit the jQuery docs for a bit more than I did here. I think solidly going more clientside can reduce the need to refresh the page with every change, and seems to fit the requirements for this particular application.</p>
 		</div>
 		<div class="col-sm-4">
 

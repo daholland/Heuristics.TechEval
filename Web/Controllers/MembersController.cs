@@ -21,15 +21,36 @@ namespace Heuristics.TechEval.Web.Controllers {
 			return View(allMembers);
 		}
 
+		public bool CheckEmailAvailability(string email)
+		{
+			var memberWithEmail = _context.Members.Where((m) => m.Email == email).ToList();
+			
+			if (memberWithEmail.Count > 0)
+            {
+				return false;
+            }
+
+			return true;
+		}
+
 		[HttpPost]
 		public ActionResult New(NewMember data) {
+			
 			var newMember = new Member {
 				Name = data.Name,
 				Email = data.Email
 			};
 
-			_context.Members.Add(newMember);
-			_context.SaveChanges();
+			if (CheckEmailAvailability(data.Email))
+			{
+				_context.Members.Add(newMember);
+				_context.SaveChanges();
+			} else
+            {
+				//return validationerror on model, I need to look at which ActionResult supports this best
+				//and add error callbacks in jQuery to parse this data;
+				return HttpNotFound();
+            }
 
 			return Json(JsonConvert.SerializeObject(newMember));
 		}
@@ -52,6 +73,12 @@ namespace Heuristics.TechEval.Web.Controllers {
 		public ActionResult Edit([Bind(Include = "Id, Name, Email")] EditMember data)
 		{
 			var member = new Member { Id = data.Id, Name = data.Name, Email = data.Email };
+
+			if (CheckEmailAvailability(data.Email))
+            {
+				//add validation to modelstate dictionary
+            }
+
 			if (ModelState.IsValid) {
 				_context.Entry(member).State = System.Data.Entity.EntityState.Modified;
 				_context.SaveChanges();
