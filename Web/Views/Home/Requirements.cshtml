@@ -83,7 +83,7 @@
 			</ol>
 
             <p>* After the first extra hour: I probably won't get to this, but: there is definitely a way to support filtering, but I would need a firmer grasp on the client state management than I had for these tasks. As for client vs server, sorting and filtering on the client can feel more responsive to the user. It also lowers the amount of back and forth requests to the server. One advantage of doing it on the server could be an easier time of auditing/logging user interactions for later study, but this can also be handled client side. Serverside sorting and filtering can be desired when there's a lot of information, and you only want to present limited results to the viewer. Also, SQL is built to handle sorting and filtering, and is quite good at it, and can also be used. I think I would tend to default to client sorting and filtering, and use server sorting and filtering when needed for the dataset. </p>
-
+			<p>* Also, use server side filtering/sorting for sensitive filters; ie when theres different user roles and what information they are allowed to view/edit.</p>
 
 			<h3>Task 6 - Your Choice</h3>
 			<p>
